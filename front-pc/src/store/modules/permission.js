@@ -2,7 +2,7 @@ import {asyncRoutes, constantRoutes} from '@/router'
 
 
 const state = {
-    mainNavPath : '/basic-tpl',//一级选中路由路径(默认首页)
+    mainNavPath : '/shop',//一级选中路由路径(默认首页)
     routes : [],
     addRoutes : []
 }
@@ -14,7 +14,6 @@ const hasPermission = (roles,route) => {
         return true;
     }
 }
-
 const getters = {
     //当前侧边菜单
     currentMenuRoutes : state => {

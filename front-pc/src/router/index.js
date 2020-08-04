@@ -5,51 +5,8 @@ Vue.use(Router);
 
 /* Layout */
 import LayoutOuter from '@/layout/layout-outer'
-import LayoutInner from '@/layout/layout-inner'
 
-import TplChildRouters from './mainModules/basic-tpl'
-
-
-
-const main2ChildRouters = [
-    {
-        path: 'example',
-        component: LayoutInner,
-        redirect: '/main2/example/goodsList',
-        meta: { title: '表格', icon: 'dashboard'},
-
-        children: [
-            {
-                path: 'goodsList',
-                component: () => import('@/views/main2/example/goodsList'),
-                name: 'GoodsList',
-                meta: { title: '商品列表'}
-            },
-            {
-                path: 'userList',
-                component: () => import('@/views/main2/example/userList'),
-                name: 'UserList',
-                meta: { title: '用户列表'}
-            },
-        ]
-    },
-    {
-        path: 'Commodity',
-        component: LayoutInner,
-        redirect: '/main2/Commodity/categorieslist',
-        meta: { title: '商品', icon: 'dashboard'},
-
-        children: [
-            {
-                path: 'categorieslist',
-                component: () => import('@/views/main2/Commodity/categorieslist'),
-                name: 'Categorieslist',
-                meta: { title: '商品分类'}
-            },
-        ]
-    },
-    
-]
+import TplChildRouters from './mainModules/shop'
 
 //不需要判断动态判断权限的路由（一些通用页面）
 
@@ -58,7 +15,7 @@ export const  constantRoutes = [
     {
         path: '/redirect',
         component: LayoutOuter,
-        hidden: true,
+        meta: { hidden: true },
         children : [
             {
                 path : '/redirect/:path*',//为什么加个* 才能匹配到？？
@@ -69,7 +26,7 @@ export const  constantRoutes = [
     {
         path: '/login',
         component: () => import('@/views/login/index'),
-        hidden: true
+        meta : { hidden: true }
     }
 ]
 
@@ -78,27 +35,18 @@ export const asyncRoutes = [
     {
         path : '/',
         component: LayoutOuter,
-        redirect: '/basic-tpl',
-        hiddenInNavbar : true
+        redirect: '/shop',
+        meta: { hiddenInNavbar : true }
     },
     {
-        path : '/basic-tpl',
+        path : '/shop',
         component: LayoutOuter,
-        redirect: '/basic-tpl/dashboard',
+        redirect: '/shop/merchant',
         children : TplChildRouters,
         meta : {
-            title : 'basic-tpl'
+            title : 'shop'
         }
-    },
-    // {
-    //     path : '/main2',
-    //     component: LayoutOuter,
-    //     redirect: '/main2/example',
-    //     children : main2ChildRouters,
-    //     meta : {
-    //         title : '菜单二'
-    //     }
-    // }
+    }
 ];
 
 

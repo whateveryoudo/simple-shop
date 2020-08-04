@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!item.hidden">
+    <div v-if="!item.meta.hidden">
         <!--   不包含子项 的项     -->
         <template v-if="showOneChildMenu">
             <AppLink v-if="onlyOneMenu && onlyOneMenu.meta" :to="resolvePath(onlyOneMenu.path)">
@@ -52,14 +52,14 @@
 
             showOneChildMenu () {
                 let children = this.item.children || [];
-                // console.log(children.some(item => !item.hidden));
-                return !children.some(item => !item.hidden);
+                // console.log(children.some(item => !item.meta.hidden));
+                return !children.some(item => !item.meta.hidden);
             },
             onlyOneMenu(){
                 let parent = this.item;
                 let children = this.item.children || [];
                 const showChildren = children.filter(item =>{
-                    if(item.hidden){
+                    if(item.meta.hidden){
                         return false
                     }else{
                         return true;

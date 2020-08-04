@@ -3,7 +3,7 @@
 
         <el-form ref="loginForm" class="login-form" :model="formObj" :rules="loginRules">
             <div class="title-container">
-                <h3 class="title">小电商后台admin</h3>
+                <h3 class="title">{{title}}</h3>
             </div>
             <el-form-item prop="username">
                 <i class="icon el-icon-user"></i>
@@ -14,11 +14,17 @@
             <el-form-item prop="password">
                 <i class="icon el-icon-lock"></i>
                 <el-input
+                        type="password"
                         v-model="formObj.password"
                         @keyup.enter.native="handleLogin"
                         placeholder="密码：any"/>
             </el-form-item>
-
+            <el-form-item>
+                <el-radio-group v-model="formObj.loginType">
+                    <el-radio label="merchant">商家</el-radio>
+                    <el-radio label="admin">管理员</el-radio>
+                </el-radio-group>
+            </el-form-item>
             <el-button :loading="loading" class="submit-btn" type="primary" @click="handleLogin">
                {{loading ? '登录中' : '登录'}}
             </el-button>
@@ -47,9 +53,11 @@
         name : 'Login',
         data(){
             return {
+                title: process.env.VUE_APP_BASE_TITLE,
                 formObj : {
                     username : '',
-                    password : ''
+                    password : '',
+                    loginType: 'merchant' // 默认商家端
                 },
                 loading : false,
                 loginRules : {
@@ -68,27 +76,16 @@
         methods : {
             ...mapActions('user',['login']),
              handleLogin(){
-//                 this.$router.push('/');
                 this.$refs.loginForm.validate(async valid => {
                     if(valid){
                         this.loading = true;
                         try {
-                            const res = await this.login(this.formObj);
+                            await this.login(this.formObj);
                             this.loading = false;
                             this.$router.push('/');
-//                            const h = this.$createElement;//自定义node(这里无法获取info, 而main.js里面无法使用this.$createElement)
-//                            this.$message({
-//                                message: h('p', null, [
-//                                    h('i', { style: 'color: rgb(64, 158, 255);marginRight:5px' }, `${res.name},`),
-//                                    h('span', null, '欢迎回来 ')
-//                                ]),
-//                                type: 'success'
-//                            });
-
                         }catch (err){
                             this.loading = false;
                         }
-
                     }
                 })
             }

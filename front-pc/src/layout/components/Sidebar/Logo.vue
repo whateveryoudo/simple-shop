@@ -18,7 +18,7 @@
     export default {
         data(){
             return {
-                title : 'vue-admin-pro',
+                title : process.env.VUE_APP_BASE_TITLE,
                 logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
             }
         },

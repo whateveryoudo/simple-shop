@@ -12,8 +12,6 @@ router.beforeEach(async(to,from,next) => {
     //test
     NProgress.start();
     //TODO 设置title
-
-
     const hasToken = getToken();
     if(hasToken){
         if(to.path === '/login'){//已经登录直接跳转首页
