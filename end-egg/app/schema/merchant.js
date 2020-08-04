@@ -32,9 +32,10 @@ module.exports = app => {
             type: STRING(76),
             allowNull: false
         },
+        // enabled 启用，disabled禁用
         enableStatus: {
-            type: STRING(20),
-            allowNull: false
+            type: ENUM('enabled', 'disabled'),
+            allowNull: false,
         },
         userType: {
             type: ENUM('merchant', 'employee'),
