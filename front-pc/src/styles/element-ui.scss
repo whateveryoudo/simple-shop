@@ -1,0 +1,34 @@
+.el-icon-user:before {
+  content: "\e6e3";
+}
+.el-message-box{
+  width:300px;
+}
+.v-modal{
+  opacity: .2;
+}
+.el-drawer__header{
+  margin-bottom: 0;
+}
+//navmenu复写
+.el-menu-item{
+  text-align: left;
+}
+//card复写
+
+.el-card__header{
+  border-bottom: none;
+}
+.el-card__body{
+  overflow: hidden;
+}
+//按钮复写
+
+.el-button{
+  &.btn-block{
+    width: 100%;
+  }
+  &.btn-dashed{
+    border-style: dashed;
+  }
+}
