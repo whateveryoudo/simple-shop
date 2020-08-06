@@ -1,13 +1,13 @@
-import { login,getInfo,logOut} from '@/api/user'
-import {getToken,setToken,removeToken} from '@/utils'
+import { login, getInfo, logOut } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils'
 
 const state = {
-    name : '',
-    token : getToken(),//默认获取本地存储的
-    info : {},//用户信息对象
+    name: '',
+    token: getToken(),//默认获取本地存储的
+    info: {},//用户信息对象
 }
-const mutations  = {
-    SET_TOKEN : (state,token) => {
+const mutations = {
+    SET_TOKEN: (state, token) => {
         state.token = token;
     },
     //设置用户信息
@@ -16,15 +16,14 @@ const mutations  = {
     }
 }
 const actions = {
-      //用户登录
-      login({commit},userInfo){
-        const {username,password} = userInfo;
+    //用户登录
+    login({ commit }, userInfo) {
         // return await login({username : username.trim(),password});
-        return new Promise((resolve,reject) => {
-            login({username : username.trim(),password}).then(res => {
-                const {token} = res.data;
+        return new Promise((resolve, reject) => {
+            login(userInfo).then(res => {
+                const { token } = res.data;
                 //将token保存 vuex & 本地
-                commit('SET_TOKEN',token);
+                commit('SET_TOKEN', token);
                 setToken(token);
                 resolve(res.data);
             }).catch(err => {
@@ -33,11 +32,11 @@ const actions = {
         })
     },
     //获取用户信息
-    getUserInfo({commit,state}){
-        return new Promise((resolve,reject) => {
-            getInfo({token : state.token}).then(res => {
-                const {data : {info}} = res;//这里未存入本地了,每次请求都会重新获取用户信息
-                commit('SET_USETINFO',info);
+    getUserInfo({ commit, state }) {
+        return new Promise((resolve, reject) => {
+            getInfo({ token: state.token }).then(res => {
+                const { data: { info } } = res;//这里未存入本地了,每次请求都会重新获取用户信息
+                commit('SET_USETINFO', info);
                 resolve(res.data);
             }).catch(err => {
                 reject(err);
@@ -45,12 +44,12 @@ const actions = {
         })
     },
     //退出登录
-    loginOut({commit,state}){
-        return new Promise((resolve,reject) => {
-            logOut({token : state.token}).then(res => {
+    loginOut({ commit, state }) {
+        return new Promise((resolve, reject) => {
+            logOut({ token: state.token }).then(res => {
                 //清除vuex 本地数据
-                commit('SET_TOKEN','');
-                commit('SET_USETINFO',{});
+                commit('SET_TOKEN', '');
+                commit('SET_USETINFO', {});
                 removeToken();
                 //TODO 重置路由
                 resolve();
@@ -61,7 +60,7 @@ const actions = {
     }
 }
 export default {
-    namespaced : true,
+    namespaced: true,
     state,
     mutations,
     actions

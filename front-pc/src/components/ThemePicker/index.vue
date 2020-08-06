@@ -26,7 +26,6 @@ const version = require('element-ui/package.json').version
                     return this.$store.state.settings.theme;
                 },
                 set : async function (val) {
-                    debugger;
                     const oldTheme = this.chalk ? this.theme : ORIGINAL_THEME;
                     if(typeof val !== 'string'){return}
                     const themeCluster = this.getThemeCluster(val.replace('#',''));

@@ -27,6 +27,12 @@ module.exports = appInfo => {
       port: 3306,
       password: 'onemoretime123.',
       database: 'ykx-shop-db'
+    },
+    // 暂时关闭
+    security: {
+      csrf: {
+        enable: false,
+      },
     }
   };
 
